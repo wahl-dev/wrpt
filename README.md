@@ -3,15 +3,44 @@
 <h4 align="center">A minimal <a href="https://portainer.io/" target="_blank">Portainer</a> cli built with <a href="https://www.rust-lang.org" target="_blank">Rust</a></h4>
 
 <p align="center">
+  <a href="#about">About</a> •
+  <a href="#roadmap">Roadmap</a> •
   <a href="#available-commands">Available Commands</a> •
   <a href="#license">License</a>
 </p>
 
 ---
 
-<p align="center">
-Inspired by <a href="https://gitlab.com/tortuetorche" target="_blank">@tortuetorche</a>'s work on <a href="https://gitlab.com/psuapp/psu" target="_blank">psuaapp/psy</a>
-</p>
+## About
+
+WRPT is a lightweight command-line interface designed to streamline the deployment of Docker-Compose stacks on Portainer.  
+
+While its primary focus is on stack deployment, it also provides additional features such as stack/endpoint listing and access control management (wip). WRPT is designed not only for manual usage but also for integration into CI/CD pipelines, making it a versatile tool for automating deployment workflows.
+
+This project draws inspiration from <a href="https://gitlab.com/tortuetorche" target="_blank">@tortuetorche</a>'s work on <a href="https://gitlab.com/psuapp/psu" target="_blank">psuaapp/psy</a>.  
+
+It is also my first project written in Rust and is under **active development**, so contributions and feedback are welcome! Stay tuned for new features and improvements.
+
+---
+
+## Roadmap
+
+Here are the planned enhancements and features for WRPT:  
+
+- 🚧 **Access Control Management:** Enable stack deployments with fine-grained access control, allowing assignment to specific users and/or groups.  
+- 🚧 **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
+- 🚧 **Comprehensive Documentation:** Write detailed usage guides, including setup instructions for integration into CI/CD pipelines on GitLab and GitHub.
+- ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool.
+- ⏳ **Cross-Platform Compatibility:** Ensure the executable works seamlessly on major operating systems (Linux, Windows, macOS).  
+- ⏳ **Docker Image:** Create a Docker image.
+- 💭 **Kubernetes Compatibility:** Extend the tool to support Portainer deployments on Kubernetes environment.
+
+### Legend
+- ✅ : Completed  
+- 🚧 : In progress  
+- ⏳ : Pending  
+- 💭 : In reflection
+- ❌ : Abandoned 
 
 ---
 
@@ -23,7 +52,7 @@ Inspired by <a href="https://gitlab.com/tortuetorche" target="_blank">@tortuetor
 | [`stack remove`](#stack-remove)   | Remove a stack.                                           |
 | [`stack list`](#stack-list)       | List all stacks based on the current user authorizations. |
 | [`endpoint list`](#endpoint-list) | List endpoints.                                           |
-| [`help`](#help)                   | Display help message.                                     |
+| `help`                            | Display help message.                                     |
 
 ### Global options
 
@@ -129,10 +158,6 @@ Options:
 ---
 ## License
 
-[MIT](LICENSE) 
+The source code of this project is licensed under the [MIT license](https://opensource.org/license/MIT). 
 
----
-
-<p align="center">
-    <a href="https://github.com/Wahib-L" target="_blank">@Wahib-L</a>
-</p>
+See [LICENSE](LICENSE) file for reference.
