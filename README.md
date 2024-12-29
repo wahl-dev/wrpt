@@ -3,10 +3,11 @@
 <h4 align="center">A minimal <a href="https://portainer.io/" target="_blank">Portainer</a> cli built with <a href="https://www.rust-lang.org" target="_blank">Rust</a></h4>
 
 <p align="center">
-  <a href="#about">About</a> •
-  <a href="#roadmap">Roadmap</a> •
-  <a href="#available-commands">Available Commands</a> •
-  <a href="#license">License</a>
+    <a href="#about">About</a> •
+    <a href="#roadmap">Roadmap</a> •
+    <a href="#available-commands">Available Commands</a> •
+    <a href="#docker">Docker</a> •
+    <a href="#license">License</a>
 </p>
 
 ---
@@ -27,12 +28,12 @@ It is also my first project written in Rust and is under **active development**,
 
 Here are the planned enhancements and features for WRPT:  
 
+- ✅ **Docker Image:** Create a Docker image.
 - 🚧 **Access Control Management:** Enable stack deployments with fine-grained access control, allowing assignment to specific users and/or groups.  
 - 🚧 **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
 - 🚧 **Comprehensive Documentation:** Write detailed usage guides, including setup instructions for integration into CI/CD pipelines on GitLab and GitHub.
 - ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool.
 - ⏳ **Cross-Platform Compatibility:** Ensure the executable works seamlessly on major operating systems (Linux, Windows, macOS).  
-- ⏳ **Docker Image:** Create a Docker image.
 - 💭 **Kubernetes Compatibility:** Extend the tool to support Portainer deployments on Kubernetes environment.
 
 ### Legend
@@ -154,6 +155,36 @@ Options:
       --color <COLOR>                When to use terminal colours [default: auto] [possible values: auto, always, never]
   -h, --help                         Print help
 ```
+
+---
+
+## Docker
+
+WRPT is also available as a Docker image for easier usage and integration. The image is hosted on Docker Hub: [wahl/wrpt](https://hub.docker.com/repository/docker/wahl/wrpt).
+
+### Pull the Docker image
+
+```bash
+docker pull wahl/wrpt:latest
+```
+
+### Available Tags
+
+The available tags for the Docker image can be found [here](https://hub.docker.com/repository/docker/wahl/wrpt/tags).
+
+### Example usage
+
+Below is an example of using the Docker image to list stacks:
+
+```bash
+docker run -it --rm \
+  -e PORTAINER_URL="$PORTAINER_URL" \
+  -e PORTAINER_ACCESS_TOKEN="$PORTAINER_ACCESS_TOKEN" \
+  wahl/wrpt:latest stack list
+```
+
+### Notes
+- Replace `$PORTAINER_URL` and `$PORTAINER_ACCESS_TOKEN` with your Portainer instance details.
 
 ---
 ## License
