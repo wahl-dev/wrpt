@@ -28,13 +28,13 @@ It is also my first project written in Rust and is under **active development**,
 
 Here are the planned enhancements and features for WRPT:  
 
-- ✅ **Docker Image:** Create a Docker image.
 - 🚧 **Access Control Management:** Enable stack deployments with fine-grained access control, allowing assignment to specific users and/or groups.  
 - 🚧 **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
 - 🚧 **Comprehensive Documentation:** Write detailed usage guides, including setup instructions for integration into CI/CD pipelines on GitLab and GitHub.
 - ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool.
 - ⏳ **Cross-Platform Compatibility:** Ensure the executable works seamlessly on major operating systems (Linux, Windows, macOS).  
 - 💭 **Kubernetes Compatibility:** Extend the tool to support Portainer deployments on Kubernetes environment.
+- ✅ **Docker Image:** Create a Docker image.
 
 ### Legend
 - ✅ : Completed  
@@ -57,14 +57,14 @@ Here are the planned enhancements and features for WRPT:
 
 ### Global options
 
-| Flag  | Option                          | Description                                                                                                      |
-|-------|---------------------------------|------------------------------------------------------------------------------------------------------------------|
-| -l    | `--url <URL>`                   | URL of the Portainer instance.                                                                                   |
-| -A    | `--access-token <ACCESS_TOKEN>` | Access token of the Portainer instance.                                                                          |
-|       | `--color <COLOR>`               | When to use terminal colours [default: auto] [possible values: auto, always, never].                             |
-| -v... |                                 | Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace. |
-| -q    | `--quiet`                       | Do not output any message.                                                                                       |
-| -h    | `--help`                        | Print help.                                                                                                      |
+| Flag  | Option                          | Description                                                                                                                                          |
+|-------|---------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -l    | `--url <URL>`                   | URL of the Portainer instance.                                                                                                                       |
+| -A    | `--access-token <ACCESS_TOKEN>` | Access token of the Portainer instance. Learn how to generate an access token [here](https://docs.portainer.io/api/access#creating-an-access-token). |
+|       | `--color <COLOR>`               | When to use terminal colours [default: auto] [possible values: auto, always, never].                                                                 |
+| -v... |                                 | Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace.                                     |
+| -q    | `--quiet`                       | Do not output any message.                                                                                                                           |
+| -h    | `--help`                        | Print help.                                                                                                                                          |
 
 ### Available environment variables
 
