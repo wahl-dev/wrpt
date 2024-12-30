@@ -24,13 +24,12 @@ pre_bump_hooks = [
 # `{{version}}` will be interpreted as your target version
 post_bump_hooks = [
     "git push",
-    "git push origin {{version}}",
     "cargo package",
     "cargo publish"
 ]
 
 # Whether to only consider commits since the latest SemVer tag.
-from_latest_tag = true
+from_latest_tag = false
 
 [changelog]
 path = "CHANGELOG.md"
@@ -39,5 +38,5 @@ remote = "github.com"
 repository = "wrpt"
 owner = "Wahib-L"
 authors = [
-    { signature = "Wahib", username = "Wahib-L" },
+    { signature = "Wahib LAROUI", username = "Wahib-L" },
 ]
