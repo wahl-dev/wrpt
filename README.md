@@ -18,7 +18,7 @@ WRPT is a lightweight command-line interface designed to streamline the deployme
 
 While its primary focus is on stack deployment, it also provides additional features such as stack/endpoint listing and access control management (wip). WRPT is designed not only for manual usage but also for integration into CI/CD pipelines, making it a versatile tool for automating deployment workflows.
 
-This project draws inspiration from <a href="https://gitlab.com/tortuetorche" target="_blank">@tortuetorche</a>'s work on <a href="https://gitlab.com/psuapp/psu" target="_blank">psuaapp/psy</a>.  
+This project draws inspiration from <a href="https://gitlab.com/tortuetorche" target="_blank">@tortuetorche</a>'s work on <a href="https://gitlab.com/psuapp/psu" target="_blank">psuapp/psy</a>.  
 
 It is also my first project written in Rust and is under **active development**, so contributions and feedback are welcome! Stay tuned for new features and improvements.
 
