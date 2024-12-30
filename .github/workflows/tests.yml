@@ -25,4 +25,4 @@ jobs:
             -   name: Run clippy
                 run: cargo clippy --verbose
             -   name: Run fmt
-                run: cargo fmt --all--verbose
+                run: cargo fmt --all --verbose
