@@ -24,9 +24,7 @@ pre_bump_hooks = [
 # `{{version}}` will be interpreted as your target version
 post_bump_hooks = [
     "git push",
-    "git tag -d {{version_tag}}",
-    "git tag {{version_tag}}",
-    "git push origin {{version_tag}}",
+    "git push origin {{version}}",
     "cargo package",
     "cargo publish"
 ]
