@@ -3,6 +3,13 @@
 <h4 align="center">A minimal <a href="https://portainer.io/" target="_blank">Portainer</a> cli built with <a href="https://www.rust-lang.org" target="_blank">Rust</a></h4>
 
 <p align="center">
+    <a href="https://crates.io/crates/wrpt"><img src="https://img.shields.io/crates/v/wrpt.svg" alt=""/></a>
+    <a href="https://hub.docker.com/repository/docker/wahl/wrpt"><img src="https://img.shields.io/docker/v/wahl/wrpt?sort=semver&label=dockerhub&color=blue" alt=""/></a>
+    <a href="https://github.com/Wahib-L/wrpt/actions?query=workflow:Tests"><img src="https://github.com/Wahib-L/wrpt/workflows/Tests/badge.svg" alt=""/></a>
+    <a href="./LICENSE"><img src="https://img.shields.io/crates/l/wrpt.svg" alt=""/></a>
+</p>
+
+<p align="center">
     <a href="#about">About</a> •
     <a href="#roadmap">Roadmap</a> •
     <a href="#available-commands">Available Commands</a> •
@@ -29,11 +36,11 @@ It is also my first project written in Rust and is under **active development**,
 Here are the planned enhancements and features for WRPT:  
 
 - 🚧 **Access Control Management:** Enable stack deployments with fine-grained access control, allowing assignment to specific users and/or groups.  
-- 🚧 **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
 - 🚧 **Comprehensive Documentation:** Write detailed usage guides, including setup instructions for integration into CI/CD pipelines on GitLab and GitHub.
 - ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool.
 - ⏳ **Cross-Platform Compatibility:** Ensure the executable works seamlessly on major operating systems (Linux, Windows, macOS).  
 - 💭 **Kubernetes Compatibility:** Extend the tool to support Portainer deployments on Kubernetes environment.
+- ✅ **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
 - ✅ **Docker Image:** Create a Docker image.
 
 ### Legend
