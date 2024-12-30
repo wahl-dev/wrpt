@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.2.1](https://github.com/Wahib-L/wrpt/compare/v0.2.0..v0.2.1) - 2024-12-30
+#### Bug Fixes
+- clean up CHANGELOG by removing redundant entries - ([6f2155d](https://github.com/Wahib-L/wrpt/commit/6f2155d8eaea208d425ef37a2300b4e9ef5d64ed)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.2.0](https://github.com/Wahib-L/wrpt/compare/v0.1.0..v0.2.0) - 2024-12-30
 #### Bug Fixes
 - **(workflows)** fix cargo fmt test - ([5af5a14](https://github.com/Wahib-L/wrpt/commit/5af5a142de53f2edc6c701f1ba19705d2cd516cd)) - [@Wahib-L](https://github.com/Wahib-L)
