@@ -1,5 +1,5 @@
-use serde::{Deserialize, Serialize};
 use crate::commands::endpoints::models::{EndpointStatus, EndpointType};
+use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "PascalCase")]

@@ -1,12 +1,12 @@
+mod consts;
 mod endpoints;
+mod helpers;
 mod stacks;
 mod wrpt;
-mod helpers;
-mod consts;
 
-use clap::{Parser, Subcommand};
-use crate::commands::Command::{Endpoint, Stack};
 use crate::commands::wrpt::{init_logger, WrptArgs};
+use crate::commands::Command::{Endpoint, Stack};
+use clap::{Parser, Subcommand};
 
 #[derive(Debug, Subcommand)]
 pub(crate) enum Command {
@@ -21,7 +21,7 @@ pub fn init() -> Result<(), ()> {
     let args: WrptArgs = WrptArgs::parse();
 
     init_logger(&args);
-    
+
     match args.command {
         Stack(command) => stacks::handler(command, args.global_args),
         Endpoint(command) => endpoints::handler(command, args.global_args),

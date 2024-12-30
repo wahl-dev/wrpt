@@ -1,11 +1,11 @@
-pub(crate) mod list;
 pub(crate) mod deploy;
+pub(crate) mod list;
 pub(crate) mod remove;
 
-use clap::{Args, Subcommand};
 use crate::commands::stacks::args::deploy::StackDeployCommand;
 use crate::commands::stacks::args::list::StackListCommand;
 use crate::commands::stacks::args::remove::StackRemoveCommand;
+use clap::{Args, Subcommand};
 
 #[derive(Debug, Args)]
 pub struct StackCommand {
@@ -20,7 +20,7 @@ pub enum StackSubCommand {
 
     /// Deploy a stack
     Deploy(StackDeployCommand),
-    
+
     /// Remove a stack
     Remove(StackRemoveCommand),
 }

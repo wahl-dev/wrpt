@@ -1,7 +1,7 @@
 use crate::commands::stacks::models::{ResourceControl, StackStatus, StackType};
-use chrono::{DateTime, Utc};
 use chrono::serde::ts_seconds::deserialize as from_ts;
 use chrono::serde::ts_seconds_option::deserialize as from_ts_option;
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]

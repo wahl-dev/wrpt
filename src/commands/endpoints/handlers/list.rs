@@ -1,15 +1,16 @@
-
 use crate::commands::consts;
-use log_err::LogErrResult;
-use simplelog::debug;
 use crate::commands::endpoints::args::list::EndpointListCommand;
 use crate::commands::endpoints::models::list::EndpointList;
-use crate::commands::helpers::{build_table, construct_url, create_client, get_access_token, get_base_url, parse_api_response};
+use crate::commands::helpers::{
+    build_table, construct_url, create_client, get_access_token, get_base_url, parse_api_response,
+};
 use crate::commands::wrpt::GlobalArgs;
+use log_err::LogErrResult;
+use simplelog::debug;
 
 pub(crate) fn handler(command: EndpointListCommand, global_args: GlobalArgs) -> Result<(), ()> {
     debug!("command = {:?}", command);
-    
+
     let base_url = get_base_url(&global_args)?;
     let access_token = get_access_token(&global_args)?;
 
@@ -21,16 +22,16 @@ pub(crate) fn handler(command: EndpointListCommand, global_args: GlobalArgs) -> 
 }
 
 pub(crate) fn fetch_endpoints(base_url: &str, access_token: &str) -> Result<Vec<EndpointList>, ()> {
-    let url = construct_url(base_url, consts::ENDPOINT_ENDPOINTS).log_expect("failed to construct url");
-    
+    let url =
+        construct_url(base_url, consts::ENDPOINT_ENDPOINTS).log_expect("failed to construct url");
+
     debug!("request = GET {:?}", url.as_str());
 
     let response = create_client(access_token)
         .get(url)
         .query(&[("excludeSnapshots", "true")])
         .send()
-        .log_expect("invalid response from API")
-    ;
+        .log_expect("invalid response from API");
 
     parse_api_response(response)
 }

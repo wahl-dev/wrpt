@@ -9,14 +9,8 @@ pub fn handler(stack: StackCommand, global_args: GlobalArgs) -> Result<(), ()> {
     let command = stack.command;
 
     match command {
-        StackSubCommand::List(command) => {
-            handlers::list::handler(command, global_args)
-        },
-        StackSubCommand::Deploy(command) => {
-            handlers::deploy::handler(command, global_args)
-        },
-        StackSubCommand::Remove(command) => {
-            handlers::remove::handler(command, global_args)
-        },
+        StackSubCommand::List(command) => handlers::list::handler(command, global_args),
+        StackSubCommand::Deploy(command) => handlers::deploy::handler(command, global_args),
+        StackSubCommand::Remove(command) => handlers::remove::handler(command, global_args),
     }
 }

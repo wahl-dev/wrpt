@@ -1,20 +1,20 @@
-use std::env;
 use crate::commands::consts;
-use log_err::LogErrResult;
-use reqwest::header::{HeaderName, HeaderValue};
-use serde_json::Value::Null;
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::PathBuf;
-use prettytable::{cell, Cell, Row, Table};
-use prettytable::format::{FormatBuilder, LinePosition, LineSeparator};
-use reqwest::blocking::Response;
-use reqwest::Url;
-use serde::de::DeserializeOwned;
-use simplelog::{debug, error, warn};
 use crate::commands::stacks::handlers::list::fetch_stacks;
 use crate::commands::stacks::models::deploy::EnvVar;
 use crate::commands::wrpt::GlobalArgs;
+use log_err::LogErrResult;
+use prettytable::format::{FormatBuilder, LinePosition, LineSeparator};
+use prettytable::{cell, Cell, Row, Table};
+use reqwest::blocking::Response;
+use reqwest::header::{HeaderName, HeaderValue};
+use reqwest::Url;
+use serde::de::DeserializeOwned;
+use serde_json::Value::Null;
+use simplelog::{debug, error, warn};
+use std::env;
+use std::fs::File;
+use std::io::{self, BufRead};
+use std::path::PathBuf;
 
 pub(crate) fn create_client(api_key: &str) -> reqwest::blocking::Client {
     reqwest::blocking::Client::builder()
@@ -30,11 +30,15 @@ pub(crate) fn create_client(api_key: &str) -> reqwest::blocking::Client {
         .unwrap()
 }
 
-pub(crate) fn get_stack_id_from_name(name: &str, base_url: &str, access_token: &str) -> Result<Option<u32>, ()> {
+pub(crate) fn get_stack_id_from_name(
+    name: &str,
+    base_url: &str,
+    access_token: &str,
+) -> Result<Option<u32>, ()> {
     let stacks = fetch_stacks(base_url, access_token)?;
 
     for stack in stacks {
-        if stack.name.eq(name)  {
+        if stack.name.eq(name) {
             return Ok(Some(stack.id));
         }
     }
@@ -80,28 +84,37 @@ pub(crate) fn get_swarm_id_from_endpoint_id(
 }
 
 pub(crate) fn get_base_url(global_args: &GlobalArgs) -> Result<String, ()> {
-    match global_args.url.clone().or_else(|| env::var("PORTAINER_URL").ok()) {
+    match global_args
+        .url
+        .clone()
+        .or_else(|| env::var("PORTAINER_URL").ok())
+    {
         None => {
             error!("param `url` or environment variable `PORTAINER_URL` should be set");
             Err(())
-        },
+        }
         Some(base_url) => Ok(base_url),
     }
 }
 
 pub(crate) fn get_access_token(global_args: &GlobalArgs) -> Result<String, ()> {
-    match global_args.access_token.clone().or_else(|| env::var("PORTAINER_ACCESS_TOKEN").ok()) {
+    match global_args
+        .access_token
+        .clone()
+        .or_else(|| env::var("PORTAINER_ACCESS_TOKEN").ok())
+    {
         None => {
             error!("param `access-token` or environment variable `PORTAINER_ACCESS_TOKEN` should be set");
             Err(())
-        },
+        }
         Some(base_url) => Ok(base_url),
     }
 }
 
 pub(crate) fn construct_url(base_url: &str, endpoint: &str) -> Result<Url, String> {
     let url = Url::parse(base_url).map_err(|_| "invalid base URL".to_string())?;
-    url.join(endpoint).map_err(|_| "invalid endpoint path".to_string())
+    url.join(endpoint)
+        .map_err(|_| "invalid endpoint path".to_string())
 }
 
 pub(crate) fn build_table<T>(items: &[T], columns: Option<&[&str]>) -> Table
@@ -113,7 +126,7 @@ where
         FormatBuilder::new()
             .padding(1, 1)
             .separator(LinePosition::Title, LineSeparator::default())
-            .build()
+            .build(),
     );
 
     if let Some(first_item) = items.first() {
@@ -154,12 +167,13 @@ where
             Some(cols) => cols
                 .iter()
                 .map(|&col| {
-                    map.get(col).map_or_else(|| cell!(""), |value| {
-                        match value {
+                    map.get(col).map_or_else(
+                        || cell!(""),
+                        |value| match value {
                             serde_json::Value::String(s) => cell!(s),
                             _ => cell!(value.to_string()),
-                        }
-                    })
+                        },
+                    )
                 })
                 .collect(),
             None => map
@@ -177,25 +191,39 @@ where
 
 pub(crate) fn handle_api_response(response: Response) -> Result<Response, ()> {
     debug!("response = {:?}", response);
-    
+
     if !response.status().is_success() {
         let status = response.status();
-        let body = response.text().unwrap_or_else(|_| "<unable to read response body>".to_string());
+        let body = response
+            .text()
+            .unwrap_or_else(|_| "<unable to read response body>".to_string());
 
         // Try to parse the error response as JSON
         if let Ok(json) = serde_json::from_str::<serde_json::Value>(&body) {
-            let message = json.get("message").and_then(|v| v.as_str()).unwrap_or("<no message>");
-            let details = json.get("details").and_then(|v| v.as_str()).unwrap_or("<no details>");
-            
-            error!("<b>Api error</>: <i>{}</>\n<b>message</>: <i>{}</>\n<b>details</>: <i>{}</>", status, message, details);
+            let message = json
+                .get("message")
+                .and_then(|v| v.as_str())
+                .unwrap_or("<no message>");
+            let details = json
+                .get("details")
+                .and_then(|v| v.as_str())
+                .unwrap_or("<no details>");
+
+            error!(
+                "<b>Api error</>: <i>{}</>\n<b>message</>: <i>{}</>\n<b>details</>: <i>{}</>",
+                status, message, details
+            );
         } else {
             // If not JSON, log the raw body
-            error!("<b>Api error</>: <i>{}</>\n<b>body</>: <i>{}</>", status, body);
+            error!(
+                "<b>Api error</>: <i>{}</>\n<b>body</>: <i>{}</>",
+                status, body
+            );
         }
-        
+
         return Err(());
     }
-    
+
     Ok(response)
 }
 
@@ -203,9 +231,7 @@ pub(crate) fn parse_api_response<T>(response: Response) -> Result<Vec<T>, ()>
 where
     T: DeserializeOwned,
 {
-    let response = handle_api_response(response)?
-    .text()
-    .unwrap_or_else(|_| {
+    let response = handle_api_response(response)?.text().unwrap_or_else(|_| {
         warn!("unable to read API response");
 
         String::new()
@@ -214,18 +240,20 @@ where
     debug!("response_body = {:?}", response);
 
     // Try to parse as a collection first
-    Ok(serde_json::from_str::<Vec<T>>(&response).unwrap_or_else(|_| {
-        // If parsing as a collection fails, try parsing as a single item
-        serde_json::from_str::<T>(&response)
-            .map(|item| vec![item]) // Wrap the single item in a Vec
-            .unwrap_or_else(|_| {
-                warn!("error when deserializing JSON response as collection or item.");
-                vec![]
-            })
-    }))
+    Ok(
+        serde_json::from_str::<Vec<T>>(&response).unwrap_or_else(|_| {
+            // If parsing as a collection fails, try parsing as a single item
+            serde_json::from_str::<T>(&response)
+                .map(|item| vec![item]) // Wrap the single item in a Vec
+                .unwrap_or_else(|_| {
+                    warn!("error when deserializing JSON response as collection or item.");
+                    vec![]
+                })
+        }),
+    )
 }
 
-pub (crate) fn parse_env_file(file_path: Option<PathBuf>) -> Result<Vec<EnvVar>, io::Error> {
+pub(crate) fn parse_env_file(file_path: Option<PathBuf>) -> Result<Vec<EnvVar>, io::Error> {
     let file = File::open(file_path.unwrap_or_default())?;
     let reader = io::BufReader::new(file);
 

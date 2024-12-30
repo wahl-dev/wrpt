@@ -1,11 +1,11 @@
-use std::path::PathBuf;
 use clap::Args;
+use std::path::PathBuf;
 
 #[derive(Debug, Args)]
 pub struct StackDeployCommand {
     /// Name of the stack
     pub stack_name: String,
-    
+
     /// Id of the environment (endpoint) that will be used
     #[arg(short = 'E', long)]
     pub endpoint: u32,

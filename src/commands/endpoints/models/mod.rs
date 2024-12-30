@@ -1,6 +1,6 @@
 pub(crate) mod list;
 
-use serde::{Serialize};
+use serde::Serialize;
 use serde_repr::Deserialize_repr;
 
 #[derive(Debug, Serialize, Deserialize_repr, PartialEq)]
