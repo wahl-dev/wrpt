@@ -17,7 +17,7 @@ pub(crate) enum Command {
     Stack(stacks::args::StackCommand),
 }
 
-pub fn init() {
+pub fn init() -> Result<(), ()> {
     let args: WrptArgs = WrptArgs::parse();
 
     init_logger(&args);

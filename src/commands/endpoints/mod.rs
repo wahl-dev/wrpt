@@ -5,7 +5,7 @@ pub mod models;
 use crate::commands::endpoints::args::{EndpointCommand, EndpointSubCommand};
 use crate::commands::wrpt::GlobalArgs;
 
-pub fn handler(endpoint: EndpointCommand, global_args: GlobalArgs) {
+pub fn handler(endpoint: EndpointCommand, global_args: GlobalArgs) -> Result<(), ()> {
     let command = endpoint.command;
 
     match command {

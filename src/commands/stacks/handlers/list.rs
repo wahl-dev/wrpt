@@ -6,13 +6,13 @@ use crate::commands::stacks::args::list::StackListCommand;
 use crate::commands::stacks::models::list::StackList;
 use crate::commands::wrpt::GlobalArgs;
 
-pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) {
+pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) -> Result<(), ()> {
     debug!("command = {:?}", command);
     
-    let base_url = get_base_url(&global_args);
-    let access_token = get_access_token(&global_args);
+    let base_url = get_base_url(&global_args)?;
+    let access_token = get_access_token(&global_args)?;
 
-    let stacks = fetch_stacks(base_url.as_str(), access_token.as_str());
+    let stacks = fetch_stacks(base_url.as_str(), access_token.as_str())?;
 
     build_table(&stacks, Some(&[
         "Id",
@@ -27,9 +27,11 @@ pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) {
         "UpdatedBy",
         // "ResourceControl",
     ])).printstd();
+
+    Ok(())
 }
 
-pub(crate) fn fetch_stacks(base_url: &str, access_token: &str) -> Vec<StackList> {
+pub(crate) fn fetch_stacks(base_url: &str, access_token: &str) -> Result<Vec<StackList>, ()> {
     let url = construct_url(base_url, consts::ENDPOINT_STACKS).log_expect("failed to construct url");
     
     debug!("request = GET {:?}", url.as_str());

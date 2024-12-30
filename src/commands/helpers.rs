@@ -1,12 +1,11 @@
 use std::env;
 use crate::commands::consts;
-use log_err::{LogErrOption, LogErrResult};
+use log_err::LogErrResult;
 use reqwest::header::{HeaderName, HeaderValue};
 use serde_json::Value::Null;
 use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::PathBuf;
-use std::process::exit;
 use prettytable::{cell, Cell, Row, Table};
 use prettytable::format::{FormatBuilder, LinePosition, LineSeparator};
 use reqwest::blocking::Response;
@@ -31,16 +30,16 @@ pub(crate) fn create_client(api_key: &str) -> reqwest::blocking::Client {
         .unwrap()
 }
 
-pub(crate) fn get_stack_id_from_name(name: &str, base_url: &str, access_token: &str) -> Option<u32> {
-    let stacks = fetch_stacks(base_url, access_token);
+pub(crate) fn get_stack_id_from_name(name: &str, base_url: &str, access_token: &str) -> Result<Option<u32>, ()> {
+    let stacks = fetch_stacks(base_url, access_token)?;
 
     for stack in stacks {
         if stack.name.eq(name)  {
-            return Some(stack.id);
+            return Ok(Some(stack.id));
         }
     }
 
-    None
+    Ok(None)
 }
 
 pub(crate) fn get_swarm_id_from_endpoint_id(
@@ -80,20 +79,24 @@ pub(crate) fn get_swarm_id_from_endpoint_id(
     None
 }
 
-pub(crate) fn get_base_url(global_args: &GlobalArgs) -> String {
-    global_args
-        .url
-        .clone()
-        .or_else(|| env::var("PORTAINER_URL").ok())
-        .log_expect("param `url` or environment variable `PORTAINER_URL` should be set")
+pub(crate) fn get_base_url(global_args: &GlobalArgs) -> Result<String, ()> {
+    match global_args.url.clone().or_else(|| env::var("PORTAINER_URL").ok()) {
+        None => {
+            error!("param `url` or environment variable `PORTAINER_URL` should be set");
+            Err(())
+        },
+        Some(base_url) => Ok(base_url),
+    }
 }
 
-pub(crate) fn get_access_token(global_args: &GlobalArgs) -> String {
-    global_args
-        .access_token
-        .clone()
-        .or_else(|| env::var("PORTAINER_ACCESS_TOKEN").ok())
-        .log_expect("param `access-token` or environment variable `PORTAINER_ACCESS_TOKEN` should be set")
+pub(crate) fn get_access_token(global_args: &GlobalArgs) -> Result<String, ()> {
+    match global_args.access_token.clone().or_else(|| env::var("PORTAINER_ACCESS_TOKEN").ok()) {
+        None => {
+            error!("param `access-token` or environment variable `PORTAINER_ACCESS_TOKEN` should be set");
+            Err(())
+        },
+        Some(base_url) => Ok(base_url),
+    }
 }
 
 pub(crate) fn construct_url(base_url: &str, endpoint: &str) -> Result<Url, String> {
@@ -172,7 +175,7 @@ where
     }
 }
 
-pub(crate) fn handle_api_response(response: Response) -> Response {
+pub(crate) fn handle_api_response(response: Response) -> Result<Response, ()> {
     debug!("response = {:?}", response);
     
     if !response.status().is_success() {
@@ -183,27 +186,24 @@ pub(crate) fn handle_api_response(response: Response) -> Response {
         if let Ok(json) = serde_json::from_str::<serde_json::Value>(&body) {
             let message = json.get("message").and_then(|v| v.as_str()).unwrap_or("<no message>");
             let details = json.get("details").and_then(|v| v.as_str()).unwrap_or("<no details>");
-
-            error!("<b>status</>: <i>{}</>", status);
-            error!("<b>message</>: <i>{}</>", message);
-            error!("<b>details</>: <i>{}</>", details);
+            
+            error!("<b>Api error</>: <i>{}</>\n<b>message</>: <i>{}</>\n<b>details</>: <i>{}</>", status, message, details);
         } else {
             // If not JSON, log the raw body
-            error!("<b>status</>: <i>{}</>", status);
-            error!("<b>body</>: <i>{}</>", body);
+            error!("<b>Api error</>: <i>{}</>\n<b>body</>: <i>{}</>", status, body);
         }
-
-        exit(1);
+        
+        return Err(());
     }
     
-    response
+    Ok(response)
 }
 
-pub(crate) fn parse_api_response<T>(response: Response) -> Vec<T>
+pub(crate) fn parse_api_response<T>(response: Response) -> Result<Vec<T>, ()>
 where
     T: DeserializeOwned,
 {
-    let response = handle_api_response(response)
+    let response = handle_api_response(response)?
     .text()
     .unwrap_or_else(|_| {
         warn!("unable to read API response");
@@ -214,7 +214,7 @@ where
     debug!("response_body = {:?}", response);
 
     // Try to parse as a collection first
-    serde_json::from_str::<Vec<T>>(&response).unwrap_or_else(|_| {
+    Ok(serde_json::from_str::<Vec<T>>(&response).unwrap_or_else(|_| {
         // If parsing as a collection fails, try parsing as a single item
         serde_json::from_str::<T>(&response)
             .map(|item| vec![item]) // Wrap the single item in a Vec
@@ -222,7 +222,7 @@ where
                 warn!("error when deserializing JSON response as collection or item.");
                 vec![]
             })
-    })
+    }))
 }
 
 pub (crate) fn parse_env_file(file_path: Option<PathBuf>) -> Result<Vec<EnvVar>, io::Error> {

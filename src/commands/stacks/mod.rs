@@ -5,7 +5,7 @@ pub mod models;
 use crate::commands::stacks::args::{StackCommand, StackSubCommand};
 use crate::commands::wrpt::GlobalArgs;
 
-pub fn handler(stack: StackCommand, global_args: GlobalArgs) {
+pub fn handler(stack: StackCommand, global_args: GlobalArgs) -> Result<(), ()> {
     let command = stack.command;
 
     match command {

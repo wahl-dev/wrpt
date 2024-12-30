@@ -7,11 +7,11 @@ use crate::commands::stacks::args::deploy::StackDeployCommand;
 use crate::commands::stacks::models::deploy::{Stack, StackDeploySwarmCreatePayload, StackDeployUpdatePayload};
 use crate::commands::wrpt::GlobalArgs;
 
-pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) {
+pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> Result<(), ()> {
     debug!("command = {:?}", command);
 
-    let base_url = get_base_url(&global_args);
-    let access_token = get_access_token(&global_args);
+    let base_url = get_base_url(&global_args)?;
+    let access_token = get_access_token(&global_args)?;
 
     let stack_file_content =
         fs::read_to_string(command.compose_file).log_expect("Unable to read `compose-file`");
@@ -25,7 +25,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) {
         command.stack_name.as_str(),
         base_url.as_str(),
         access_token.as_str(),
-    );
+    )?;
 
     let stack:Vec<Stack> = if stack_id.is_none() {
         info!("Stack \"{}\" does not exist", command.stack_name);
@@ -47,7 +47,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) {
         debug!("stack JSON = {:?}", stack_create_payload);
 
         info!("Creating stack \"{}\"", command.stack_name);
-        create_swarm_stack(base_url.as_str(), access_token.as_str(), stack_create_payload, command.endpoint)
+        create_swarm_stack(base_url.as_str(), access_token.as_str(), stack_create_payload, command.endpoint)?
     } else {
         info!(
             "Stack \"{}\" exists (id = {})",
@@ -65,7 +65,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) {
         debug!("stack JSON = {:?}", stack_update_payload);
 
         info!("Updating stack \"{}\"", command.stack_name);
-        update_stack(base_url.as_str(), access_token.as_str(), stack_update_payload, stack_id.unwrap_or_default(), command.endpoint)
+        update_stack(base_url.as_str(), access_token.as_str(), stack_update_payload, stack_id.unwrap_or_default(), command.endpoint)?
     };
     
     info!("Done");
@@ -83,9 +83,11 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) {
         "UpdatedBy",
         // "ResourceControl",
     ])).printstd();
+
+    Ok(())
 }
 
-pub(crate) fn create_swarm_stack(base_url: &str, access_token: &str, stack_create_payload: StackDeploySwarmCreatePayload, entrypoint_id: u32) -> Vec<Stack> {
+pub(crate) fn create_swarm_stack(base_url: &str, access_token: &str, stack_create_payload: StackDeploySwarmCreatePayload, entrypoint_id: u32) -> Result<Vec<Stack>, ()> {
     let url = construct_url(base_url, consts::ENDPOINT_STACKS_CREATE_SWARM_STRING).log_expect("failed to construct url");
 
     debug!("request = POST {:?}", url.as_str());
@@ -101,7 +103,7 @@ pub(crate) fn create_swarm_stack(base_url: &str, access_token: &str, stack_creat
     parse_api_response(response)
 }
 
-pub(crate) fn update_stack(base_url: &str, access_token: &str, stack_update_payload: StackDeployUpdatePayload, stack_id: u32, entrypoint_id: u32) -> Vec<Stack> {
+pub(crate) fn update_stack(base_url: &str, access_token: &str, stack_update_payload: StackDeployUpdatePayload, stack_id: u32, entrypoint_id: u32) -> Result<Vec<Stack>, ()> {
     let url = construct_url(
         base_url,
         consts::ENDPOINT_STACKS_UPDATE
