@@ -1,10 +1,10 @@
 use crate::commands::helpers::{build_table, construct_url, create_client, get_access_token, get_base_url, get_stack_id_from_name, get_swarm_id_from_endpoint_id, parse_api_response, parse_env_file};
 use crate::commands::consts;
-use log_err::{LogErrOption, LogErrResult};
+use log_err::{LogErrResult};
 use simplelog::{debug, info};
 use std::fs;
 use crate::commands::stacks::args::deploy::StackDeployCommand;
-use crate::commands::stacks::models::deploy::{Stack, StackDeploySwarmCreatePayload, StackDeployUpdatePayload};
+use crate::commands::stacks::models::deploy::{Stack, StackDeployStandaloneCreatePayload, StackDeploySwarmCreatePayload, StackDeployUpdatePayload};
 use crate::commands::wrpt::GlobalArgs;
 
 pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> Result<(), ()> {
@@ -31,23 +31,54 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
         info!("Stack \"{}\" does not exist", command.stack_name);
 
         info!("Getting Docker info...");
-        let swarm_id =
-            get_swarm_id_from_endpoint_id(command.endpoint, base_url.as_str(), access_token.as_str())
-                .log_expect("swarm id not found");
-        info!("Swarm cluster found : {:?}", swarm_id);
-
-        info!("Preparing stack JSON...");
-        let stack_create_payload = StackDeploySwarmCreatePayload {
-            env: env_file,
-            from_app_template: false,
-            name: command.stack_name.clone(),
-            stack_file_content,
-            swarm_id,
-        };
-        debug!("stack JSON = {:?}", stack_create_payload);
-
-        info!("Creating stack \"{}\"", command.stack_name);
-        create_swarm_stack(base_url.as_str(), access_token.as_str(), stack_create_payload, command.endpoint)?
+        let swarm_id = get_swarm_id_from_endpoint_id(command.endpoint, base_url.as_str(), access_token.as_str());
+        
+        match swarm_id {
+            Some(swarm_id) => {
+                info!("Swarm cluster found : {}", swarm_id);
+        
+                info!("Preparing stack JSON...");
+                let stack_create_payload = StackDeploySwarmCreatePayload {
+                    env: env_file,
+                    from_app_template: false,
+                    name: command.stack_name.clone(),
+                    stack_file_content,
+                    swarm_id,
+                };
+                debug!("stack JSON = {:?}", stack_create_payload);
+        
+                info!("Creating Swarm stack \"{}\"", command.stack_name);
+                create_stack(
+                    base_url.as_str(), 
+                    access_token.as_str(), 
+                    stack_create_payload, 
+                    command.endpoint, 
+                    consts::ENDPOINT_STACKS_CREATE_SWARM_STRING
+                )?
+            }
+            None => {
+                info!("Swarm cluster not found");
+                
+                info!("Preparing stack JSON...");
+                let stack_create_payload = StackDeployStandaloneCreatePayload {
+                    env: env_file,
+                    from_app_template: false,
+                    name: command.stack_name.clone(),
+                    stack_file_content,
+                };
+                debug!("stack JSON = {:?}", stack_create_payload);
+        
+                info!("Creating standalone stack \"{}\"", command.stack_name);
+                create_stack(
+                    base_url.as_str(),
+                    access_token.as_str(),
+                    stack_create_payload,
+                    command.endpoint,
+                    consts::ENDPOINT_STACKS_CREATE_STANDALONE_STRING
+                )?
+            }
+        }
+        
     } else {
         info!(
             "Stack \"{}\" exists (id = {})",
@@ -87,8 +118,8 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
     Ok(())
 }
 
-pub(crate) fn create_swarm_stack(base_url: &str, access_token: &str, stack_create_payload: StackDeploySwarmCreatePayload, entrypoint_id: u32) -> Result<Vec<Stack>, ()> {
-    let url = construct_url(base_url, consts::ENDPOINT_STACKS_CREATE_SWARM_STRING).log_expect("failed to construct url");
+pub(crate) fn create_stack<T: serde::Serialize>(base_url: &str, access_token: &str, stack_create_payload: T, entrypoint_id: u32, endpoint: &str) -> Result<Vec<Stack>, ()> {
+    let url = construct_url(base_url, endpoint).log_expect("failed to construct url");
 
     debug!("request = POST {:?}", url.as_str());
 

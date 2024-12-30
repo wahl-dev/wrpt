@@ -23,6 +23,15 @@ pub(crate) struct StackDeploySwarmCreatePayload {
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
+pub(crate) struct StackDeployStandaloneCreatePayload {
+    pub(crate) env: Vec<EnvVar>,
+    pub(crate) from_app_template: bool,
+    pub(crate) name: String,
+    pub(crate) stack_file_content: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
 pub(crate) struct StackDeployUpdatePayload {
     pub(crate) env: Vec<EnvVar>,
     pub(crate) stack_file_content: String,
