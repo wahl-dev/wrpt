@@ -11,5 +11,6 @@ pub(crate) const ENDPOINT_STACKS_UPDATE: &str = concatcp!(ENDPOINT_STACKS, "/{id
 
 pub(crate) const ENDPOINT_ENDPOINTS: &str = concatcp!(BASE_API_PATH, "/endpoints");
 pub(crate) const ENDPOINT_TEAMS: &str = concatcp!(BASE_API_PATH, "/teams");
+pub(crate) const ENDPOINT_USERS: &str = concatcp!(BASE_API_PATH, "/users");
 pub(crate) const ENDPOINT_ENDPOINTS_DOCKER_INFO: &str =
     concatcp!(ENDPOINT_ENDPOINTS, "/{id}/docker/info");
