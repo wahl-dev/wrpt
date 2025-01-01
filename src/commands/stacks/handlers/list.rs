@@ -25,11 +25,11 @@ pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) -> Res
             "Status",
             "SwarmId",
             "EndpointId",
+            "ResourceControl",
             "CreationDate",
             "CreatedBy",
             "UpdateDate",
             "UpdatedBy",
-            // "ResourceControl",
         ]),
     )
     .printstd();

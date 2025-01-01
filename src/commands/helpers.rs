@@ -168,24 +168,33 @@ where
                 .iter()
                 .map(|&col| {
                     map.get(col).map_or_else(
-                        || cell!(""),
-                        |value| match value {
-                            serde_json::Value::String(s) => cell!(s),
-                            _ => cell!(value.to_string()),
-                        },
+                        || cell!(""), // If the column is missing, an empty cell is inserted.
+                        process_table_value,
                     )
                 })
                 .collect(),
-            None => map
-                .values()
-                .map(|value| match value {
-                    serde_json::Value::String(s) => cell!(s),
-                    _ => cell!(value.to_string()),
-                })
-                .collect(),
+            None => map.values().map(process_table_value).collect(),
         }
     } else {
         vec![]
+    }
+}
+
+fn process_table_value(value: &serde_json::Value) -> Cell {
+    match value {
+        serde_json::Value::Object(obj) => {
+            // If the Id property exists, it is displayed
+            if let Some(serde_json::Value::Number(id)) = obj.get("Id") {
+                cell!(id.to_string())
+            } else if let Some(serde_json::Value::String(id)) = obj.get("Id") {
+                cell!(id)
+            } else {
+                // Otherwise, we encode in JSON
+                cell!(value.to_string())
+            }
+        }
+        serde_json::Value::String(s) => cell!(s),
+        _ => cell!(value.to_string()),
     }
 }
 

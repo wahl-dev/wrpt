@@ -125,11 +125,11 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
             "Status",
             "SwarmId",
             "EndpointId",
+            "ResourceControl",
             "CreationDate",
             "CreatedBy",
             "UpdateDate",
             "UpdatedBy",
-            // "ResourceControl",
         ]),
     )
     .printstd();
