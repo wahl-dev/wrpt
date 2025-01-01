@@ -2,6 +2,20 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.3.0](https://github.com/Wahib-L/wrpt/compare/v0.2.1..v0.3.0) - 2025-01-01
+#### Documentation
+- **(README.md)** update command list in README to include team and user commands - ([9b948a7](https://github.com/Wahib-L/wrpt/commit/9b948a79ef703190cc91ab37ba6c85ed39afe7dd)) - [@Wahib-L](https://github.com/Wahib-L)
+- add badges to README for crate version, Docker image, and CI status to enhance visibility and provide quick access to project information - ([65226fe](https://github.com/Wahib-L/wrpt/commit/65226fee7e8f81d0452481f1a1d92fc26204d5f8)) - [@Wahib-L](https://github.com/Wahib-L)
+#### Features
+- **(teams)** add users command with list subcommand - ([bf098d7](https://github.com/Wahib-L/wrpt/commit/bf098d702e3fabb6404a80f40b6652ffa98a5b89)) - [@Wahib-L](https://github.com/Wahib-L)
+- **(teams)** add teams command with list subcommand - ([cedb20b](https://github.com/Wahib-L/wrpt/commit/cedb20bb66de6ebc54390d96031216ec562b6097)) - [@Wahib-L](https://github.com/Wahib-L)
+#### Miscellaneous Chores
+- **(docs)** update README to include a link to the changelog - ([de8a499](https://github.com/Wahib-L/wrpt/commit/de8a499529b293a7504bc52c2048d52595f3d569)) - [@Wahib-L](https://github.com/Wahib-L)
+#### Refactoring
+- **(table)** display struct Id if available and factorize value processing - ([7257877](https://github.com/Wahib-L/wrpt/commit/725787766a8cb5f9644858eba0c678dc01a2ecde)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.2.1](https://github.com/Wahib-L/wrpt/compare/v0.2.0..v0.2.1) - 2024-12-30
 #### Bug Fixes
 - clean up CHANGELOG by removing redundant entries - ([6f2155d](https://github.com/Wahib-L/wrpt/commit/6f2155d8eaea208d425ef37a2300b4e9ef5d64ed)) - [@Wahib-L](https://github.com/Wahib-L)
