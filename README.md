@@ -14,6 +14,7 @@
     <a href="#roadmap">Roadmap</a> •
     <a href="#available-commands">Available Commands</a> •
     <a href="#docker">Docker</a> •
+    <a href="#changelog">Changelog</a> •
     <a href="#license">License</a>
 </p>
 
@@ -37,8 +38,7 @@ Here are the planned enhancements and features for WRPT:
 
 - 🚧 **Access Control Management:** Enable stack deployments with fine-grained access control, allowing assignment to specific users and/or groups.  
 - 🚧 **Comprehensive Documentation:** Write detailed usage guides, including setup instructions for integration into CI/CD pipelines on GitLab and GitHub.
-- ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool.
-- ⏳ **Cross-Platform Compatibility:** Ensure the executable works seamlessly on major operating systems (Linux, Windows, macOS).  
+- ⏳ **Automated Testing:** Write tests to ensure the reliability and stability of the tool. 
 - 💭 **Kubernetes Compatibility:** Extend the tool to support Portainer deployments on Kubernetes environment.
 - ✅ **Automated Release Process:** Implement CI pipelines to generate changelogs and releases automatically based on versioning and commit history.
 - ✅ **Docker Image:** Create a Docker image.
@@ -169,15 +169,15 @@ Options:
 
 WRPT is also available as a Docker image for easier usage and integration. The image is hosted on Docker Hub: [wahl/wrpt](https://hub.docker.com/repository/docker/wahl/wrpt).
 
+### Available Tags
+
+The available tags for the Docker image can be found [here](https://hub.docker.com/repository/docker/wahl/wrpt/tags).
+
 ### Pull the Docker image
 
 ```bash
 docker pull wahl/wrpt:latest
 ```
-
-### Available Tags
-
-The available tags for the Docker image can be found [here](https://hub.docker.com/repository/docker/wahl/wrpt/tags).
 
 ### Example usage
 
@@ -194,6 +194,13 @@ docker run -it --rm \
 - Replace `$PORTAINER_URL` and `$PORTAINER_ACCESS_TOKEN` with your Portainer instance details.
 
 ---
+
+## Changelog
+
+The changelog is available in the [CHANGELOG.md](./CHANGELOG.md) file.
+
+---
+
 ## License
 
 The source code of this project is licensed under the [MIT license](https://opensource.org/license/MIT). 

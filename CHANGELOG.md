@@ -20,6 +20,5 @@ All notable changes to this project will be documented in this file. See [conven
 - **(release.yml)** add permissions for write access to contents - ([5c2c372](https://github.com/Wahib-L/wrpt/commit/5c2c372f9f6eed79be7757b721ff07540c9b4006)) - [@Wahib-L](https://github.com/Wahib-L)
 - **(tests.yml)** remove duplicate test execution step - ([3446b4c](https://github.com/Wahib-L/wrpt/commit/3446b4c7dfefb028a8732f0827767bc55577fa47)) - [@Wahib-L](https://github.com/Wahib-L)
 - **(version)** v0.2.0 - ([4009bb3](https://github.com/Wahib-L/wrpt/commit/4009bb366d6e3773161a29311a9bd3906369e17a)) - github-actions
-- **(version)** v0.2.0 - ([10da0ce](https://github.com/Wahib-L/wrpt/commit/10da0cea9798aec9cc0e8d94ce0088ed100abe7f)) - github-actions
 #### Style
 - format code for improved readability and consistency across files - ([d29f19d](https://github.com/Wahib-L/wrpt/commit/d29f19d64709997246ab4034330c460656624849)) - [@Wahib-L](https://github.com/Wahib-L)
