@@ -54,13 +54,15 @@ Here are the planned enhancements and features for WRPT:
 
 ## Available Commands
 
-| Name                              | Description                                               |
-|-----------------------------------|-----------------------------------------------------------|
-| [`stack deploy`](#stack-deploy)   | Deploy/update a stack.                                    |
-| [`stack remove`](#stack-remove)   | Remove a stack.                                           |
+| Name                              | Description                                              |
+|-----------------------------------|----------------------------------------------------------|
+| [`stack deploy`](#stack-deploy)   | Deploy/update a stack.                                   |
+| [`stack remove`](#stack-remove)   | Remove a stack.                                          |
 | [`stack list`](#stack-list)       | List all stacks based on the current user authorizations. |
-| [`endpoint list`](#endpoint-list) | List endpoints.                                           |
-| `help`                            | Display help message.                                     |
+| [`endpoint list`](#endpoint-list) | List endpoints.                                          |
+| [`team list`](#team-list)         | List teams.                                              |
+| [`user list`](#user-list)         | List users.                                              |
+| `help`                            | Display help message.                                    |
 
 ### Global options
 
@@ -128,7 +130,6 @@ Options:
   -h, --help                         Print help
 ```
 
-
 ##### Stack list
 
 ```
@@ -153,6 +154,42 @@ Options:
 List endpoints
 
 Usage: wrpt endpoint list [OPTIONS]
+
+Options:
+  -l, --url <URL>                    URL of the Portainer instance
+  -A, --access-token <ACCESS_TOKEN>  Access token of the Portainer instance
+  -v...                              Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace
+  -q, --quiet                        Do not output any message
+      --color <COLOR>                When to use terminal colours [default: auto] [possible values: auto, always, never]
+  -h, --help                         Print help
+```
+
+#### Team
+
+##### Team list
+
+```
+List teams
+
+Usage: wrpt team list [OPTIONS]
+
+Options:
+  -l, --url <URL>                    URL of the Portainer instance
+  -A, --access-token <ACCESS_TOKEN>  Access token of the Portainer instance
+  -v...                              Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace
+  -q, --quiet                        Do not output any message
+      --color <COLOR>                When to use terminal colours [default: auto] [possible values: auto, always, never]
+  -h, --help                         Print help
+```
+
+#### User
+
+##### User list
+
+```
+List users
+
+Usage: wrpt user list [OPTIONS]
 
 Options:
   -l, --url <URL>                    URL of the Portainer instance

@@ -13,7 +13,7 @@ pub(crate) struct User {
 #[repr(u32)]
 pub(crate) enum UserRole {
     Administrator = 1,
-    Regular = 2,
+    User = 2,
     #[serde(other)]
     Unknown = 0,
 }
