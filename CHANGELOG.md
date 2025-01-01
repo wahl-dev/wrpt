@@ -2,6 +2,14 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.4.0](https://github.com/Wahib-L/wrpt/compare/v0.3.0..v0.4.0) - 2025-01-01
+#### Features
+- **(stacks)** implement `resource_control` command to display ResourceControl details of a specific stack - ([0111228](https://github.com/Wahib-L/wrpt/commit/01112287fde95e34009fc6fe4164a83c015d646a)) - [@Wahib-L](https://github.com/Wahib-L)
+#### Miscellaneous Chores
+- **(workflows)** update Docker and test workflows to trigger on release events and remove branch restrictions for better flexibility in CI/CD process - ([f4d408b](https://github.com/Wahib-L/wrpt/commit/f4d408b77f5d9f48e168a508427bf071f96c921e)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.3.0](https://github.com/Wahib-L/wrpt/compare/v0.2.1..v0.3.0) - 2025-01-01
 #### Documentation
 - **(README.md)** update command list in README to include team and user commands - ([9b948a7](https://github.com/Wahib-L/wrpt/commit/9b948a79ef703190cc91ab37ba6c85ed39afe7dd)) - [@Wahib-L](https://github.com/Wahib-L)
