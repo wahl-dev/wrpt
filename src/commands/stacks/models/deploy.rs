@@ -1,4 +1,5 @@
-use crate::commands::stacks::models::{ResourceControl, StackStatus, StackType};
+use crate::commands::stacks::models::resource_control::ResourceControl;
+use crate::commands::stacks::models::{StackStatus, StackType};
 use chrono::serde::ts_seconds::deserialize as from_ts;
 use chrono::serde::ts_seconds_option::deserialize as from_ts_option;
 use chrono::{DateTime, Utc};

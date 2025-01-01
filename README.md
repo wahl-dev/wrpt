@@ -54,15 +54,16 @@ Here are the planned enhancements and features for WRPT:
 
 ## Available Commands
 
-| Name                              | Description                                              |
-|-----------------------------------|----------------------------------------------------------|
-| [`stack deploy`](#stack-deploy)   | Deploy/update a stack.                                   |
-| [`stack remove`](#stack-remove)   | Remove a stack.                                          |
-| [`stack list`](#stack-list)       | List all stacks based on the current user authorizations. |
-| [`endpoint list`](#endpoint-list) | List endpoints.                                          |
-| [`team list`](#team-list)         | List teams.                                              |
-| [`user list`](#user-list)         | List users.                                              |
-| `help`                            | Display help message.                                    |
+| Name                                                | Description                                               |
+|-----------------------------------------------------|-----------------------------------------------------------|
+| [`stack deploy`](#stack-deploy)                     | Deploy/update a stack.                                    |
+| [`stack remove`](#stack-remove)                     | Remove a stack.                                           |
+| [`stack list`](#stack-list)                         | List all stacks based on the current user authorizations. |
+| [`stack resource-control`](#stack-resource-control) | Display the ResourceControl details of a specific stack.  |
+| [`endpoint list`](#endpoint-list)                   | List endpoints.                                           |
+| [`team list`](#team-list)                           | List teams.                                               |
+| [`user list`](#user-list)                           | List users.                                               |
+| `help`                                              | Display help message.                                     |
 
 ### Global options
 
@@ -116,6 +117,26 @@ Options:
 Remove a stack
 
 Usage: wrpt stack remove [OPTIONS] --endpoint <ENDPOINT> <STACK_NAME>
+
+Arguments:
+  <STACK_NAME>  Name of the stack
+
+Options:
+  -E, --endpoint <ENDPOINT>          Id of the environment (endpoint) that will be used
+  -l, --url <URL>                    URL of the Portainer instance
+  -A, --access-token <ACCESS_TOKEN>  Access token of the Portainer instance
+  -v...                              Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace
+  -q, --quiet                        Do not output any message
+      --color <COLOR>                When to use terminal colours [default: auto] [possible values: auto, always, never]
+  -h, --help                         Print help
+```
+
+##### Stack resource-control
+
+```
+Display the ResourceControl details of a specific stack
+
+Usage: wrpt stack resource-control [OPTIONS] --endpoint <ENDPOINT> <STACK_NAME>
 
 Arguments:
   <STACK_NAME>  Name of the stack
