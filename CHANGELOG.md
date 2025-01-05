@@ -2,6 +2,17 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.5.0](https://github.com/Wahib-L/wrpt/compare/v0.4.0..v0.5.0) - 2025-01-05
+#### Documentation
+- **(README.md)** add documentation for stack start and stack stop commands - ([2bf4a73](https://github.com/Wahib-L/wrpt/commit/2bf4a73340a24dca0003cb3645a9e4b9a17508b4)) - [@Wahib-L](https://github.com/Wahib-L)
+- update GitHub Actions badge link to reflect new repository name - ([e5854f1](https://github.com/Wahib-L/wrpt/commit/e5854f1f300debd40a30d6c1b0e898b019bc4a2d)) - [@Wahib-L](https://github.com/Wahib-L)
+- update GitHub Actions badge link to reflect new repository name - ([0868b1f](https://github.com/Wahib-L/wrpt/commit/0868b1fd54b3b5e7821fd687466dcbc413a5cd13)) - [@Wahib-L](https://github.com/Wahib-L)
+#### Features
+- **(stacks)** add start command - ([4b4f1f1](https://github.com/Wahib-L/wrpt/commit/4b4f1f11c241419dad21e4be80b36d3476b29438)) - [@Wahib-L](https://github.com/Wahib-L)
+- **(stacks)** add stop command - ([5248667](https://github.com/Wahib-L/wrpt/commit/52486675bb22652725c22c8da6565a3dfcb31acc)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.4.0](https://github.com/Wahib-L/wrpt/compare/v0.3.0..v0.4.0) - 2025-01-01
 #### Features
 - **(stacks)** implement `resource_control` command to display ResourceControl details of a specific stack - ([0111228](https://github.com/Wahib-L/wrpt/commit/01112287fde95e34009fc6fe4164a83c015d646a)) - [@Wahib-L](https://github.com/Wahib-L)
