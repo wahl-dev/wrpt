@@ -36,7 +36,7 @@ path = "CHANGELOG.md"
 template = "remote"
 remote = "github.com"
 repository = "wrpt"
-owner = "Wahib-L"
+owner = "wahl-dev"
 authors = [
     { signature = "Wahib LAROUI", username = "Wahib-L" },
 ]

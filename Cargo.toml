@@ -7,7 +7,7 @@ description = "A minimal Portainer cli built with Rust"
 readme = "README.md"
 keywords = ["portainer", "cli", "deploy", "docker", "swarm"]
 categories = ["command-line-utilities"]
-repository = "https://github.com/Wahib-L/wrpt"
+repository = "https://github.com/wahl-dev/wrpt"
 
 [dependencies]
 clap = { version = "4.5.23", features = ["derive"] }
