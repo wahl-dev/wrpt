@@ -9,6 +9,7 @@ pub(crate) const ENDPOINT_STACKS_CREATE_STANDALONE_STRING: &str =
 pub(crate) const ENDPOINT_STACKS_INSPECT: &str = concatcp!(ENDPOINT_STACKS, "/{id}");
 pub(crate) const ENDPOINT_STACKS_UPDATE: &str = ENDPOINT_STACKS_INSPECT;
 pub(crate) const ENDPOINT_STACKS_REMOVE: &str = ENDPOINT_STACKS_INSPECT;
+pub(crate) const ENDPOINT_STACKS_START: &str = concatcp!(ENDPOINT_STACKS_INSPECT, "/start");
 pub(crate) const ENDPOINT_STACKS_STOP: &str = concatcp!(ENDPOINT_STACKS_INSPECT, "/stop");
 
 pub(crate) const ENDPOINT_ENDPOINTS: &str = concatcp!(BASE_API_PATH, "/endpoints");
