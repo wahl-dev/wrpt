@@ -2,11 +2,13 @@ pub(crate) mod deploy;
 pub(crate) mod list;
 pub(crate) mod remove;
 pub(crate) mod resource_control;
+pub(crate) mod stop;
 
 use crate::commands::stacks::args::deploy::StackDeployCommand;
 use crate::commands::stacks::args::list::StackListCommand;
 use crate::commands::stacks::args::remove::StackRemoveCommand;
 use crate::commands::stacks::args::resource_control::StackResourceControlCommand;
+use crate::commands::stacks::args::stop::StackStopCommand;
 use clap::{Args, Subcommand};
 
 #[derive(Debug, Args)]
@@ -28,4 +30,7 @@ pub enum StackSubCommand {
 
     /// Display the ResourceControl details of a specific stack
     ResourceControl(StackResourceControlCommand),
+
+    /// Stops a Stack
+    Stop(StackStopCommand),
 }

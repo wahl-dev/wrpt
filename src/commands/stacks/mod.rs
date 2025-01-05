@@ -15,5 +15,6 @@ pub fn handler(stack: StackCommand, global_args: GlobalArgs) -> Result<(), ()> {
         StackSubCommand::ResourceControl(command) => {
             handlers::resource_control::handler(command, global_args)
         }
+        StackSubCommand::Stop(command) => handlers::stop::handler(command, global_args),
     }
 }
