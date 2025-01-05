@@ -8,9 +8,11 @@ use crate::commands::stacks::models::deploy::{
     Stack, StackDeployStandaloneCreatePayload, StackDeploySwarmCreatePayload,
     StackDeployUpdatePayload,
 };
+use crate::commands::stacks::models::resource_control::ResourceControl;
 use crate::commands::wrpt::GlobalArgs;
 use log_err::LogErrResult;
 use simplelog::{debug, info};
+use std::collections::HashSet;
 use std::fs;
 
 pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> Result<(), ()> {
@@ -33,7 +35,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
         access_token.as_str(),
     )?;
 
-    let stack: Vec<Stack> = if stack_id.is_none() {
+    let stacks: Vec<Stack> = if stack_id.is_none() {
         info!("Stack \"{}\" does not exist", command.stack_name);
 
         info!("Getting Docker info...");
@@ -117,7 +119,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
     info!("Done");
 
     build_table(
-        &stack,
+        &stacks,
         Some(&[
             "Id",
             "Name",
@@ -133,6 +135,43 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
         ]),
     )
     .printstd();
+
+    let teams = command.add_teams.unwrap_or_default();
+    let users = command.add_users.unwrap_or_default();
+
+    if let Some(stack) = stacks.first() {
+        // Vérification des teams
+        match check_ids(stack, &teams, |rc| {
+            rc.team_accesses.iter().map(|t| t.team_id).collect()
+        }) {
+            Some(missing_teams) if missing_teams.is_empty() => {
+                info!("All specified teams are present in the first stack.");
+            }
+            Some(missing_teams) => {
+                info!("Missing teams: {:?}", missing_teams);
+            }
+            None => {
+                info!("The first stack has no associated resource control.");
+            }
+        }
+
+        // Vérification des users
+        match check_ids(stack, &users, |rc| {
+            rc.user_accesses.iter().map(|u| u.user_id).collect()
+        }) {
+            Some(missing_users) if missing_users.is_empty() => {
+                info!("All specified users are present in the first stack.");
+            }
+            Some(missing_users) => {
+                info!("Missing users: {:?}", missing_users);
+            }
+            None => {
+                info!("The first stack has no associated resource control.");
+            }
+        }
+    } else {
+        info!("No stack found.");
+    }
 
     Ok(())
 }
@@ -183,4 +222,30 @@ pub(crate) fn update_stack(
         .log_expect("invalid response from API");
 
     parse_api_response(response)
+}
+
+fn check_ids<F>(stack: &Stack, items_to_check: &[u32], extract_ids: F) -> Option<Vec<u32>>
+where
+    F: Fn(&ResourceControl) -> HashSet<u32>,
+{
+    if items_to_check.is_empty() {
+        return Some(vec![]); // Rien à vérifier si la liste est vide
+    }
+
+    // Vérifie si resource_control est présent
+    if let Some(resource_control) = &stack.resource_control {
+        // Collecter les IDs depuis la resource_control
+        let available_ids = extract_ids(resource_control);
+
+        // Trouver les IDs manquants
+        let missing_ids: Vec<u32> = items_to_check
+            .iter()
+            .cloned()
+            .filter(|id| !available_ids.contains(id))
+            .collect();
+
+        Some(missing_ids)
+    } else {
+        None // resource_control est absent
+    }
 }

@@ -25,4 +25,12 @@ pub struct StackDeployCommand {
     /// Force a pulling to current image with the original tag though the image is already the latest
     #[arg(long)]
     pub pull_image: bool,
+
+    /// Add teams by specifying their IDs as a comma-separated list
+    #[arg(short = 'T', long, num_args=0.., value_delimiter = ',')]
+    pub add_teams: Option<Vec<u32>>,
+
+    /// Add users by specifying their IDs as a comma-separated list
+    #[arg(short = 'U', long, num_args=0.., value_delimiter = ',')]
+    pub add_users: Option<Vec<u32>>,
 }
