@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.5.1](https://github.com/wahl-dev/wrpt/compare/v0.5.0..v0.5.1) - 2025-01-05
+#### Bug Fixes
+- update repository URLs in workflows, changelog, and Cargo.toml to reflect new organization name - ([bb5af04](https://github.com/wahl-dev/wrpt/commit/bb5af046282ad50e39abcf57653cde5ddedc3310)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 <<<<<<< HEAD
 ## [v0.5.0](https://github.com/wahl-dev/wrpt/compare/v0.4.0..v0.5.0) - 2025-01-05
 #### Documentation
