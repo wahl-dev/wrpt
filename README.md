@@ -5,7 +5,7 @@
 <p align="center">
     <a href="https://crates.io/crates/wrpt"><img src="https://img.shields.io/crates/v/wrpt.svg" alt=""/></a>
     <a href="https://hub.docker.com/repository/docker/wahl/wrpt"><img src="https://img.shields.io/docker/v/wahl/wrpt?sort=semver&label=dockerhub&color=blue" alt=""/></a>
-    <a href="https://github.com/Wahib-L/wrpt/actions?query=workflow:Tests"><img src="https://github.com/Wahib-L/wrpt/workflows/Tests/badge.svg" alt=""/></a>
+    <a href="https://github.com/wahl-dev/wrpt/actions?query=workflow:Tests"><img src="https://github.com/wahl-dev/wrpt/workflows/Tests/badge.svg" alt=""/></a>
     <a href="./LICENSE"><img src="https://img.shields.io/crates/l/wrpt.svg" alt=""/></a>
 </p>
 
