@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.6.0](https://github.com/wahl-dev/wrpt/compare/v0.5.2..v0.6.0) - 2025-01-06
+#### Features
+- add --insecure flag to skip SSL certificate verification for API requests - ([62fe521](https://github.com/wahl-dev/wrpt/commit/62fe521ab7039a54f0decfd905e41e4981f895f0)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.5.2](https://github.com/wahl-dev/wrpt/compare/v0.5.1..v0.5.2) - 2025-01-05
 #### Bug Fixes
 - move trigger docker workflow step to a new position - ([1e8f96c](https://github.com/wahl-dev/wrpt/commit/1e8f96ca9d5bf8dab7da7ee91a74f7102578683c)) - [@Wahib-L](https://github.com/Wahib-L)
