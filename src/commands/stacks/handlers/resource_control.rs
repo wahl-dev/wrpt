@@ -23,6 +23,7 @@ pub(crate) fn handler(
         command.stack_name.as_str(),
         base_url.as_str(),
         access_token.as_str(),
+        global_args.insecure,
     )?;
 
     if stack_id.is_none() {
@@ -46,6 +47,7 @@ pub(crate) fn handler(
         access_token.as_str(),
         stack_id.unwrap_or_default(),
         command.endpoint,
+        global_args.insecure,
     )?;
 
     let resource_control = &stack.first().ok_or(())?.resource_control;
@@ -60,6 +62,7 @@ pub(crate) fn inspect_stack(
     access_token: &str,
     stack_id: u32,
     entrypoint_id: u32,
+    insecure: bool,
 ) -> Result<Vec<Stack>, ()> {
     let url = construct_url(
         base_url,
@@ -71,7 +74,7 @@ pub(crate) fn inspect_stack(
 
     debug!("request = GET {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .get(url)
         .query(&[("endpointId", entrypoint_id)])
         .send()

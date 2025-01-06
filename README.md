@@ -74,6 +74,7 @@ Here are the planned enhancements and features for WRPT:
 | -l    | `--url <URL>`                   | URL of the Portainer instance.                                                                                                                       |
 | -A    | `--access-token <ACCESS_TOKEN>` | Access token of the Portainer instance. Learn how to generate an access token [here](https://docs.portainer.io/api/access#creating-an-access-token). |
 |       | `--color <COLOR>`               | When to use terminal colours [default: auto] [possible values: auto, always, never].                                                                 |
+|       | `--insecure`                    | Skip the host's SSL certificate verification, use at your own risk.                                                                                  |
 | -v... |                                 | Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace.                                     |
 | -q    | `--quiet`                       | Do not output any message.                                                                                                                           |
 | -h    | `--help`                        | Print help.                                                                                                                                          |

@@ -19,6 +19,7 @@ pub(crate) fn handler(command: StackStopCommand, global_args: GlobalArgs) -> Res
         command.stack_name.as_str(),
         base_url.as_str(),
         access_token.as_str(),
+        global_args.insecure,
     )?;
 
     if stack_id.is_none() {
@@ -39,6 +40,7 @@ pub(crate) fn handler(command: StackStopCommand, global_args: GlobalArgs) -> Res
         access_token.as_str(),
         stack_id.unwrap_or_default(),
         command.endpoint,
+        global_args.insecure,
     );
 
     info!("Done");
@@ -46,7 +48,13 @@ pub(crate) fn handler(command: StackStopCommand, global_args: GlobalArgs) -> Res
     Ok(())
 }
 
-pub(crate) fn stop_stack(base_url: &str, access_token: &str, stack_id: u32, entrypoint_id: u32) {
+pub(crate) fn stop_stack(
+    base_url: &str,
+    access_token: &str,
+    stack_id: u32,
+    entrypoint_id: u32,
+    insecure: bool,
+) {
     let url = construct_url(
         base_url,
         consts::ENDPOINT_STACKS_STOP
@@ -57,7 +65,7 @@ pub(crate) fn stop_stack(base_url: &str, access_token: &str, stack_id: u32, entr
 
     debug!("request = POST {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .post(url)
         .query(&[("endpointId", entrypoint_id)])
         .send()

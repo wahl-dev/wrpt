@@ -25,6 +25,10 @@ pub(crate) struct GlobalArgs {
     #[arg(short = 'A', long, global = true)]
     pub access_token: Option<String>,
 
+    /// Skip the host's SSL certificate verification, use at your own risk
+    #[arg(long, global = true)]
+    pub insecure: bool,
+
     /// Increase the verbosity of messages: 1 for normal output, 2 for more verbose output, 3 for debug and 4 for trace
     #[arg(short, global = true, default_value_t = 1, action = clap::ArgAction::Count, value_parser = clap::value_parser!(u8).range(..=4))]
     pub verbose: u8,

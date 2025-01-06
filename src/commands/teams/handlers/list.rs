@@ -14,19 +14,27 @@ pub(crate) fn handler(command: TeamListCommand, global_args: GlobalArgs) -> Resu
     let base_url = get_base_url(&global_args)?;
     let access_token = get_access_token(&global_args)?;
 
-    let teams = fetch_teams(base_url.as_str(), access_token.as_str())?;
+    let teams = fetch_teams(
+        base_url.as_str(),
+        access_token.as_str(),
+        global_args.insecure,
+    )?;
 
     build_table(&teams, None).printstd();
 
     Ok(())
 }
 
-pub(crate) fn fetch_teams(base_url: &str, access_token: &str) -> Result<Vec<TeamList>, ()> {
+pub(crate) fn fetch_teams(
+    base_url: &str,
+    access_token: &str,
+    insecure: bool,
+) -> Result<Vec<TeamList>, ()> {
     let url = construct_url(base_url, consts::ENDPOINT_TEAMS).log_expect("failed to construct url");
 
     debug!("request = GET {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .get(url)
         .send()
         .log_expect("invalid response from API");

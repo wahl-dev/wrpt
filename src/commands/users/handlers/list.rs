@@ -14,19 +14,27 @@ pub(crate) fn handler(command: UserListCommand, global_args: GlobalArgs) -> Resu
     let base_url = get_base_url(&global_args)?;
     let access_token = get_access_token(&global_args)?;
 
-    let users = fetch_users(base_url.as_str(), access_token.as_str())?;
+    let users = fetch_users(
+        base_url.as_str(),
+        access_token.as_str(),
+        global_args.insecure,
+    )?;
 
     build_table(&users, Some(&["Id", "Username", "Role"])).printstd();
 
     Ok(())
 }
 
-pub(crate) fn fetch_users(base_url: &str, access_token: &str) -> Result<Vec<User>, ()> {
+pub(crate) fn fetch_users(
+    base_url: &str,
+    access_token: &str,
+    insecure: bool,
+) -> Result<Vec<User>, ()> {
     let url = construct_url(base_url, consts::ENDPOINT_USERS).log_expect("failed to construct url");
 
     debug!("request = GET {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .get(url)
         .send()
         .log_expect("invalid response from API");

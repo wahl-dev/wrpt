@@ -14,7 +14,11 @@ pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) -> Res
     let base_url = get_base_url(&global_args)?;
     let access_token = get_access_token(&global_args)?;
 
-    let stacks = fetch_stacks(base_url.as_str(), access_token.as_str())?;
+    let stacks = fetch_stacks(
+        base_url.as_str(),
+        access_token.as_str(),
+        global_args.insecure,
+    )?;
 
     build_table(
         &stacks,
@@ -37,13 +41,17 @@ pub(crate) fn handler(command: StackListCommand, global_args: GlobalArgs) -> Res
     Ok(())
 }
 
-pub(crate) fn fetch_stacks(base_url: &str, access_token: &str) -> Result<Vec<StackList>, ()> {
+pub(crate) fn fetch_stacks(
+    base_url: &str,
+    access_token: &str,
+    insecure: bool,
+) -> Result<Vec<StackList>, ()> {
     let url =
         construct_url(base_url, consts::ENDPOINT_STACKS).log_expect("failed to construct url");
 
     debug!("request = GET {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .get(url)
         .send()
         .log_expect("invalid response from API");

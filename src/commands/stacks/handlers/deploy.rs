@@ -31,6 +31,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
         command.stack_name.as_str(),
         base_url.as_str(),
         access_token.as_str(),
+        global_args.insecure,
     )?;
 
     let stack: Vec<Stack> = if stack_id.is_none() {
@@ -41,6 +42,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
             command.endpoint,
             base_url.as_str(),
             access_token.as_str(),
+            global_args.insecure,
         );
 
         match swarm_id {
@@ -64,6 +66,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
                     stack_create_payload,
                     command.endpoint,
                     consts::ENDPOINT_STACKS_CREATE_SWARM_STRING,
+                    global_args.insecure,
                 )?
             }
             None => {
@@ -85,6 +88,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
                     stack_create_payload,
                     command.endpoint,
                     consts::ENDPOINT_STACKS_CREATE_STANDALONE_STRING,
+                    global_args.insecure,
                 )?
             }
         }
@@ -111,6 +115,7 @@ pub(crate) fn handler(command: StackDeployCommand, global_args: GlobalArgs) -> R
             stack_update_payload,
             stack_id.unwrap_or_default(),
             command.endpoint,
+            global_args.insecure,
         )?
     };
 
@@ -143,12 +148,13 @@ pub(crate) fn create_stack<T: serde::Serialize>(
     stack_create_payload: T,
     entrypoint_id: u32,
     endpoint: &str,
+    insecure: bool,
 ) -> Result<Vec<Stack>, ()> {
     let url = construct_url(base_url, endpoint).log_expect("failed to construct url");
 
     debug!("request = POST {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .post(url)
         .json(&stack_create_payload)
         .query(&[("endpointId", entrypoint_id)])
@@ -164,6 +170,7 @@ pub(crate) fn update_stack(
     stack_update_payload: StackDeployUpdatePayload,
     stack_id: u32,
     entrypoint_id: u32,
+    insecure: bool,
 ) -> Result<Vec<Stack>, ()> {
     let url = construct_url(
         base_url,
@@ -175,7 +182,7 @@ pub(crate) fn update_stack(
 
     debug!("request = PUT {:?}", url.as_str());
 
-    let response = create_client(access_token)
+    let response = create_client(access_token, insecure)
         .put(url)
         .json(&stack_update_payload)
         .query(&[("endpointId", entrypoint_id)])

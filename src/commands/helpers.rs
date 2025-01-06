@@ -16,8 +16,9 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::PathBuf;
 
-pub(crate) fn create_client(api_key: &str) -> reqwest::blocking::Client {
+pub(crate) fn create_client(api_key: &str, insecure: bool) -> reqwest::blocking::Client {
     reqwest::blocking::Client::builder()
+        .danger_accept_invalid_certs(insecure)
         .default_headers({
             let mut headers = reqwest::header::HeaderMap::new();
             headers.insert(
@@ -34,8 +35,9 @@ pub(crate) fn get_stack_id_from_name(
     name: &str,
     base_url: &str,
     access_token: &str,
+    insecure: bool,
 ) -> Result<Option<u32>, ()> {
-    let stacks = fetch_stacks(base_url, access_token)?;
+    let stacks = fetch_stacks(base_url, access_token, insecure)?;
 
     for stack in stacks {
         if stack.name.eq(name) {
@@ -50,6 +52,7 @@ pub(crate) fn get_swarm_id_from_endpoint_id(
     endpoint_id: u32,
     url: &str,
     access_token: &str,
+    insecure: bool,
 ) -> Option<String> {
     let mut url = url.to_string();
     url.push_str(
@@ -58,7 +61,7 @@ pub(crate) fn get_swarm_id_from_endpoint_id(
             .as_str(),
     );
 
-    let response = create_client(access_token).get(url).send();
+    let response = create_client(access_token, insecure).get(url).send();
 
     let body = response
         .log_expect("invalid response from API")
