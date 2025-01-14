@@ -10,7 +10,9 @@ COPY . /app
 RUN cargo build --release
 
 
-FROM gcr.io/distroless/cc-debian12 AS final
-COPY --from=build /app/target/release/wrpt .
+FROM debian:12-slim AS final
 
-ENTRYPOINT ["./wrpt"]
+COPY --from=build /app/target/release/wrpt /usr/bin/
+COPY --from=docker/compose-bin:2.17.0 /docker-compose /usr/bin/compose
+
+ENTRYPOINT ["/bin/wrpt"]
