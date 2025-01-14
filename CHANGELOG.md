@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.6.1](https://github.com/wahl-dev/wrpt/compare/v0.6.0..v0.6.1) - 2025-01-14
+#### Bug Fixes
+- **(docker)** switch base image from distroless to debian:12-slim for better compatibility and add docker-compose binary to the image - ([93138a1](https://github.com/wahl-dev/wrpt/commit/93138a1317e2d318f040f09142b4e0eedfdc756a)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.6.0](https://github.com/wahl-dev/wrpt/compare/v0.5.2..v0.6.0) - 2025-01-06
 #### Features
 - add --insecure flag to skip SSL certificate verification for API requests - ([62fe521](https://github.com/wahl-dev/wrpt/commit/62fe521ab7039a54f0decfd905e41e4981f895f0)) - [@Wahib-L](https://github.com/Wahib-L)
