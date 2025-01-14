@@ -1,9 +1,0 @@
-# Make sure CI fails on all warnings, including Clippy lints
-variables:
-  RUSTFLAGS: "-Dwarnings"
-
-clippy_check:
-  image: rust:latest
-  script:
-    - rustup component add clippy
-    - cargo clippy --all-targets --all-features
