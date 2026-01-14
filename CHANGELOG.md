@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.6.3](https://github.com/wahl-dev/wrpt/compare/v0.6.2..v0.6.3) - 2026-01-14
+#### Bug Fixes
+- **(Dockerfile)** add curl to debian image and rename docker-compose binary to docker-compose - ([ca59ddd](https://github.com/wahl-dev/wrpt/commit/ca59dddb7506369782b54b33260009a2da59a19e)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.6.2](https://github.com/wahl-dev/wrpt/compare/v0.6.1..v0.6.2) - 2026-01-14
 #### Bug Fixes
 - **(Dockerfile)** update docker-compose version and add openssl dependency - ([fcf7d9d](https://github.com/wahl-dev/wrpt/commit/fcf7d9d00abee6a1bf916c7f44eff7f814c4ec65)) - [@Wahib-L](https://github.com/Wahib-L)
