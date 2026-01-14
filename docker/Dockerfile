@@ -12,7 +12,9 @@ RUN cargo build --release
 
 FROM debian:12-slim AS final
 
+RUN apt-get update && apt install -y openssl
+
 COPY --from=build /app/target/release/wrpt /usr/bin/
-COPY --from=docker/compose-bin:2.17.0 /docker-compose /usr/bin/compose
+COPY --from=docker/compose-bin:latest /docker-compose /usr/bin/compose
 
 ENTRYPOINT ["/bin/wrpt"]
