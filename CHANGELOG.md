@@ -2,6 +2,12 @@
 All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.
 
 - - -
+## [v0.6.2](https://github.com/wahl-dev/wrpt/compare/v0.6.1..v0.6.2) - 2026-01-14
+#### Bug Fixes
+- **(Dockerfile)** update docker-compose version and add openssl dependency - ([fcf7d9d](https://github.com/wahl-dev/wrpt/commit/fcf7d9d00abee6a1bf916c7f44eff7f814c4ec65)) - [@Wahib-L](https://github.com/Wahib-L)
+
+- - -
+
 ## [v0.6.1](https://github.com/wahl-dev/wrpt/compare/v0.6.0..v0.6.1) - 2025-01-14
 #### Bug Fixes
 - **(docker)** switch base image from distroless to debian:12-slim for better compatibility and add docker-compose binary to the image - ([93138a1](https://github.com/wahl-dev/wrpt/commit/93138a1317e2d318f040f09142b4e0eedfdc756a)) - [@Wahib-L](https://github.com/Wahib-L)
