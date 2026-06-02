@@ -213,6 +213,7 @@ fn process_table_value(value: &serde_json::Value) -> Cell {
                 cell!(value.to_string())
             }
         }
+        serde_json::Value::Null => cell!(""),
         serde_json::Value::String(s) => cell!(s),
         _ => cell!(value.to_string()),
     }

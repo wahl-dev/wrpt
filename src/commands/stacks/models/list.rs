@@ -20,7 +20,7 @@ pub(crate) struct StackList {
     #[serde(deserialize_with = "from_ts_option")]
     pub(crate) update_date: Option<DateTime<Utc>>,
     pub(crate) updated_by: Option<String>,
-    pub(crate) resource_control: ResourceControl,
+    pub(crate) resource_control: Option<ResourceControl>,
 }
 
 #[cfg(test)]
@@ -52,6 +52,27 @@ mod tests {
         let stack: StackList = serde_json::from_str(json).unwrap();
         assert_eq!(stack.id, 1);
         assert_eq!(stack.name, "my-stack");
+        assert!(stack.resource_control.is_some());
+    }
+
+    #[test]
+    fn stack_list_deserialize_null_resource_control() {
+        let json = r#"{
+            "Id": 2,
+            "Name": "no-rc-stack",
+            "Type": 1,
+            "Status": 2,
+            "SwarmId": "",
+            "EndpointId": 1,
+            "CreationDate": 1700000000,
+            "CreatedBy": "admin",
+            "UpdateDate": null,
+            "UpdatedBy": null,
+            "ResourceControl": null
+        }"#;
+        let stack: StackList = serde_json::from_str(json).unwrap();
+        assert_eq!(stack.id, 2);
+        assert!(stack.resource_control.is_none());
     }
 
     #[test]
@@ -78,5 +99,6 @@ mod tests {
         }"#;
         let stack: StackList = serde_json::from_str(json).unwrap();
         assert_eq!(stack.id, 2);
+        assert!(stack.resource_control.is_some());
     }
 }
