@@ -24,3 +24,4 @@ chrono = { version = "0.4.39", features = ["serde"] }
 
 [dev-dependencies]
 tempfile = "3"
+mockito = "1"

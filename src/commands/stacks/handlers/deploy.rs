@@ -28,7 +28,7 @@ pub(crate) fn handler(command: StackDeployCommand, ctx: &CliContext) -> Result<(
     debug!("env_file = {:?}", env_file);
 
     info!("Getting stack info...");
-    let stack_id = get_stack_id_from_name(ctx, command.stack_name.as_str())?;
+    let stack_id = get_stack_id_from_name(ctx, command.stack_name.as_str(), command.endpoint)?;
 
     let stack: Vec<Stack> = if stack_id.is_none() {
         info!("Stack \"{}\" does not exist", command.stack_name);
